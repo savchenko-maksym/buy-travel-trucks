@@ -1,7 +1,11 @@
+import Container from "../../components/Container/Container.jsx";
+
 const HomePage = () => {
   return (
     <>
-      <p>Home Page</p>
+      <Container>
+        <p>Home Page</p>
+      </Container>
     </>
   );
 };

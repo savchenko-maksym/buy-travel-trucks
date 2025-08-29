@@ -1,0 +1,27 @@
+.header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #f7f7f7;
+  padding: 24px 0;
+  position: relative;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navWrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 32px;
+}
+
+.logo {
+  flex: 0 0 auto;
+}
