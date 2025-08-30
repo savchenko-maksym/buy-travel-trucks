@@ -1,0 +1,14 @@
+.mainWrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 64px;
+  margin-top: 48px;
+}
+
+.menuWrap {
+  width: 360px;
+}
+
+.trackList {
+  flex: 1;
+}
