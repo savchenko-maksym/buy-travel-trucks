@@ -11,9 +11,12 @@ import MicrowaveIcon from "../../assets/images/icons/microwave.svg?react";
 import GasIcon from "../../assets/images/icons/gas.svg?react";
 import WaterIcon from "../../assets/images/icons/water.svg?react";
 import StarIcon from "../../assets/images/icons/star.svg?react";
+import LocationIcon from "../../assets/images/icons/location.svg?react";
+import { Link } from "react-router-dom";
 
 const TrackItem = ({ data }) => {
-  const { name, price, rating, location, description, gallery } = data;
+  const { name, price, rating, location, description, gallery, reviews, id } =
+    data;
 
   const FEATURES_MAP = {
     transmission: { icon: <TransmissionIcon />, label: (val) => val },
@@ -32,27 +35,39 @@ const TrackItem = ({ data }) => {
   return (
     <div>
       <div className={s.cardWrap}>
-        <div>
+        <div className={s.imgWrapper}>
           <img src={gallery[0].thumb} alt={name} className={s.img} />
         </div>
+
         <div className={s.contentWrap}>
           <div className={s.header}>
             <div className={s.nameAndPrice}>
               <h2 className={s.titleName}>{name}</h2>
               <span className={s.price}>€{price}.00</span>
             </div>
+
             <div className={s.ratingAndLocation}>
               <p>
                 <StarIcon />
-                {rating}
+                {rating}({reviews.length} Reviews)
               </p>
-              <p>{location}</p>
+              <a
+                className={s.location}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  location
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LocationIcon />
+                {location}
+              </a>
             </div>
           </div>
 
           <p className={s.description}>
-            {description.length > 100
-              ? description.slice(0, 100) + "..."
+            {description.length > 70
+              ? description.slice(0, 70) + "..."
               : description}
           </p>
 
@@ -71,7 +86,9 @@ const TrackItem = ({ data }) => {
               );
             })}
           </div>
-          <button className={s.button}>Show more</button>
+          <Link to={id.toString()} className={s.button}>
+            Show more
+          </Link>
         </div>
       </div>
     </div>

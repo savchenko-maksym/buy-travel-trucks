@@ -8,3 +8,8 @@ export const fetchTracks = async () => {
   const response = await axiosAPI.get();
   return response.data.items;
 };
+
+export const fetchTrackById = async (id) => {
+  const response = await axiosAPI.get(id);
+  return response.data;
+};
