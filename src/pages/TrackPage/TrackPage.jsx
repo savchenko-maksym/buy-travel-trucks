@@ -1,10 +1,15 @@
-import { NavLink, Outlet } from "react-router-dom";
-import TrackItem from "../../components/TrackItem/TrackItem.jsx";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchTrackById } from "../../redux/trucks/operations.js";
+import s from "./TrackPage.module.css";
+import StarIcon from "../../assets/images/icons/star.svg?react";
+import LocationIcon from "../../assets/images/icons/location.svg?react";
+import Gallery from "../../components/Gallery/Gallery.jsx";
+import Container from "../../components/Container/Container.jsx";
 
 const TrackPage = () => {
-  const [track, setTrack] = useState([]);
+  const { id } = useParams();
+  const [track, setTrack] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -16,15 +21,57 @@ const TrackPage = () => {
       }
     };
     getData();
-  });
+  }, [id]);
+
+  if (!track) {
+    return <p>Loading...</p>;
+  }
+
+  const { name, price, rating, location, description, gallery, reviews } =
+    track;
+
   return (
     <div>
-      <TrackItem track={track} />
-      <NavLink to="features">Features</NavLink>
-      <NavLink to="reviews">Reviews</NavLink>
-      <div>
-        <Outlet />
-      </div>
+      <Container>
+        <div>
+          <div className={s.header}>
+            <h2 className={s.titleName}>{name}</h2>
+            <div className={s.ratingAndLocation}>
+              <p className={s.rating}>
+                <StarIcon />
+                {rating}({reviews?.length || 0} Reviews)
+              </p>
+              <a
+                className={s.location}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  location
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LocationIcon />
+                {location}
+              </a>
+            </div>
+            <span className={s.price}>€{price}.00</span>
+          </div>
+
+          <Gallery gallery={gallery} />
+
+          <p className={s.description}>
+            {description.length > 1700
+              ? description.slice(0, 1700) + "..."
+              : description}
+          </p>
+        </div>
+        <div className={s.featuresAndReviews}>
+          <NavLink to="features">Features</NavLink>
+          <NavLink to="reviews">Reviews</NavLink>
+        </div>
+        <div>
+          <Outlet />
+        </div>
+      </Container>
     </div>
   );
 };

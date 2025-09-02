@@ -10,6 +10,6 @@ export const fetchTracks = async () => {
 };
 
 export const fetchTrackById = async (id) => {
-  const response = await axiosAPI.get(id);
+  const response = await axiosAPI.get(`/${id}`);
   return response.data;
 };

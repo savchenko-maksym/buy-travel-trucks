@@ -36,7 +36,7 @@ const TrackItem = ({ data }) => {
     <div>
       <div className={s.cardWrap}>
         <div className={s.imgWrapper}>
-          <img src={gallery[0].thumb} alt={name} className={s.img} />
+          <img src={gallery[0]?.thumb} alt={name} className={s.img} />
         </div>
 
         <div className={s.contentWrap}>
@@ -49,7 +49,7 @@ const TrackItem = ({ data }) => {
             <div className={s.ratingAndLocation}>
               <p>
                 <StarIcon />
-                {rating}({reviews.length} Reviews)
+                {rating}({reviews?.length || 0} Reviews)
               </p>
               <a
                 className={s.location}
