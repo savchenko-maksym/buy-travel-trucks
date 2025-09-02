@@ -12,7 +12,7 @@
   height: 312px;
   object-fit: cover;
   border-radius: 10px;
-  cursor: pointer;
+  cursor: zoom-in;
   flex-shrink: 0; /* щоб картинки не стискались */
   scroll-snap-align: start;
 }

@@ -6,10 +6,14 @@ import StarIcon from "../../assets/images/icons/star.svg?react";
 import LocationIcon from "../../assets/images/icons/location.svg?react";
 import Gallery from "../../components/Gallery/Gallery.jsx";
 import Container from "../../components/Container/Container.jsx";
+import clsx from "clsx";
 
 const TrackPage = () => {
   const { id } = useParams();
   const [track, setTrack] = useState(null);
+  const setActiveClass = ({ isActive }) => {
+    return clsx(s.link, isActive && s.active);
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -64,12 +68,16 @@ const TrackPage = () => {
               : description}
           </p>
         </div>
-        <div className={s.featuresAndReviews}>
-          <NavLink to="features">Features</NavLink>
-          <NavLink to="reviews">Reviews</NavLink>
-        </div>
+        <nav className={s.featuresAndReviews}>
+          <NavLink to="features" className={setActiveClass}>
+            Features
+          </NavLink>
+          <NavLink to="reviews" className={setActiveClass}>
+            Reviews
+          </NavLink>
+        </nav>
         <div>
-          <Outlet />
+          <Outlet context={{ track }} />
         </div>
       </Container>
     </div>
