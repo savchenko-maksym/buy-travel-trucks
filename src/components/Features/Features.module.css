@@ -23,12 +23,15 @@
 
 .featuresAndFormWrap {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 40px;
+  margin-bottom: 80px;
 }
 
 .wrapDetails {
+  flex: 1;
+  min-width: 0;
   border-radius: 10px;
   padding: 44px 80px;
   max-width: 631px;
@@ -54,8 +57,4 @@
 }
 
 .form {
-  border: 1px solid #dadde1;
-  border-radius: 10px;
-  padding: 44px;
-  max-width: 641px;
 }

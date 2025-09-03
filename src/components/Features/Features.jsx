@@ -11,6 +11,7 @@ import MicrowaveIcon from "../../assets/images/icons/microwave.svg?react";
 import GasIcon from "../../assets/images/icons/gas.svg?react";
 import WaterIcon from "../../assets/images/icons/water.svg?react";
 import s from "./Features.module.css";
+import Forms from "../Forms/Forms.jsx";
 
 const Features = () => {
   const { track } = useOutletContext();
@@ -77,7 +78,9 @@ const Features = () => {
           </ul>
         </div>
       </div>
-      <div className={s.form}>Form</div>
+      <div className={s.form}>
+        <Forms />
+      </div>
     </div>
   );
 };
