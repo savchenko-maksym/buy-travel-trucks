@@ -1,11 +1,3 @@
-.formWrap {
-  display: flex;
-  flex-direction: column;
-  padding: 44px 57px;
-  max-width: 641px;
-  flex-shrink: 0;
-}
-
 .titleFormWrap {
   display: flex;
   flex-direction: column;
@@ -27,9 +19,8 @@
   color: #6c717b;
 }
 
-.form {
+.formBook {
   max-width: 527px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -41,6 +32,30 @@
   border: none;
   padding: 18px;
   background-color: var(--gray-light);
+}
+
+.field::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+.fieldComment {
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  padding: 18px;
+  background-color: var(--gray-light);
+  resize: none;
+  height: 120px;
+}
+
+.fieldComment::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6c717b;
 }
 
 .btn {

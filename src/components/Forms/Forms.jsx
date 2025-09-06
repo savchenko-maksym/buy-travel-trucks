@@ -14,7 +14,7 @@ const Forms = () => {
     actions.resetForm();
   };
   return (
-    <div className={s.formWrap}>
+    <div>
       <div className={s.titleFormWrap}>
         <p className={s.titleForm}>Book your campervan now</p>
         <span className={s.titleDescription}>
@@ -22,11 +22,31 @@ const Forms = () => {
         </span>
       </div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form className={s.form}>
-          <Field className={s.field} type="text" name="username" />
-          <Field className={s.field} type="email" name="email" />
-          <Field className={s.field} type="date" name="date" />
-          <Field className={s.field} type="text" name="comment" />
+        <Form className={s.formBook}>
+          <Field
+            className={s.field}
+            type="text"
+            name="username"
+            placeholder="Name*"
+          />
+          <Field
+            className={s.field}
+            type="email"
+            name="email"
+            placeholder="Email*"
+          />
+          <Field
+            className={s.field}
+            type="date"
+            name="date"
+            placeholder="Booking date*"
+          />
+          <Field
+            className={s.fieldComment}
+            as="textarea"
+            name="comment"
+            placeholder="Comment"
+          />
           <button className={s.btn} type="submit">
             Send
           </button>
