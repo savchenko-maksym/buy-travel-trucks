@@ -29,7 +29,7 @@ const Reviews = () => {
         {track.reviews.map((review, index) => (
           <div key={index}>
             <div className={s.logoNameWrap}>
-              <span>{review.reviewer_name}</span>
+              <span>{review.reviewer_name.charAt(0).toUpperCase()}</span>
               <div>
                 <p>{review.reviewer_name}</p>
                 <p>{renderStars(review.reviewer_rating)}</p>

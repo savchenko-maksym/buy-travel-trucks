@@ -28,6 +28,16 @@
   margin-bottom: 16px;
 }
 
+.logoNameWrap span {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: #e44848;
+  border-radius: 60px;
+  background-color: #f2f4f7;
+  padding: 15px 21px 13px;
+}
+
 .starFilled path {
   fill: #f5a623; /* золотий колір для заповненої зірочки */
 }
