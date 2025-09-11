@@ -26,10 +26,12 @@
 }
 
 .field {
+  width: 100%;
   border-radius: 12px;
   border: none;
   padding: 18px;
   background-color: var(--gray-light);
+  box-sizing: border-box;
 }
 
 .field::placeholder {

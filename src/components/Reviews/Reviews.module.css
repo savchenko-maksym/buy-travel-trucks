@@ -16,7 +16,7 @@
   flex: 1 1 0;
   padding: 44px 57px;
   max-width: 641px;
-  min-width: 0;
+  /* min-width: 0; */
   border: 1px solid #dadde1;
   border-radius: 10px;
 }
