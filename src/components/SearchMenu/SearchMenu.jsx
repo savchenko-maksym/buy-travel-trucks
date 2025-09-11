@@ -15,21 +15,21 @@ import Loation from "../../assets/images/icons/Location.svg?react";
 import { useState } from "react";
 
 const EQUIPMENT_MAP = {
-  AC: { icon: <AcIcon />, label: () => "AC" },
-  bathroom: { icon: <BathroomIcon />, label: () => "Bathroom" },
-  kitchen: { icon: <KitchenIcon />, label: () => "Kitchen" },
-  TV: { icon: <TvIcon />, label: () => "TV" },
-  radio: { icon: <RadioIcon />, label: () => "Radio" },
-  refrigerator: { icon: <RefrigeratorIcon />, label: () => "Refrigerator" },
-  microwave: { icon: <MicrowaveIcon />, label: () => "Microwave" },
-  gas: { icon: <GasIcon />, label: () => "Gas" },
-  water: { icon: <WaterIcon />, label: () => "Water" },
+  AC: { icon: <AcIcon />, label: "AC" },
+  bathroom: { icon: <BathroomIcon />, label: "Bathroom" },
+  kitchen: { icon: <KitchenIcon />, label: "Kitchen" },
+  TV: { icon: <TvIcon />, label: "TV" },
+  radio: { icon: <RadioIcon />, label: "Radio" },
+  refrigerator: { icon: <RefrigeratorIcon />, label: "Refrigerator" },
+  microwave: { icon: <MicrowaveIcon />, label: "Microwave" },
+  gas: { icon: <GasIcon />, label: "Gas" },
+  water: { icon: <WaterIcon />, label: "Water" },
 };
 
 const VEHICLE_TYPES = {
-  fullyIntegrated: { icon: <FullInt />, label: () => "Fully Integrated" },
-  alcove: { icon: <Alcove />, label: () => "Alcove" },
-  panelTruck: { icon: <Van />, label: () => "Van" },
+  fullyIntegrated: { icon: <FullInt />, label: "Fully Integrated" },
+  alcove: { icon: <Alcove />, label: "Alcove" },
+  panelTruck: { icon: <Van />, label: "Van" },
 };
 
 const SearchMenu = ({ onSearch }) => {
@@ -40,6 +40,7 @@ const SearchMenu = ({ onSearch }) => {
     setSelectedEquipment((prev) =>
       prev.includes(equip) ? prev.filter((e) => e !== equip) : [...prev, equip]
     );
+    console.log(selectedEquipment);
   };
 
   const toggleVehicleType = (type) => {
@@ -63,7 +64,7 @@ const SearchMenu = ({ onSearch }) => {
     onSearch({
       ...values,
       equipment: selectedEquipment,
-      vehicleTypes: setSelectedVehicleTypes,
+      vehicleTypes: selectedVehicleTypes,
     });
     resetForm();
   };
@@ -75,6 +76,34 @@ const SearchMenu = ({ onSearch }) => {
           <div>
             <label>Location</label>
             <Field name="location" placeholder="City" />
+          </div>
+          <div>
+            <p>Vehicle equipment</p>
+            <div>
+              {Object.entries(EQUIPMENT_MAP).map(([key, { icon, label }]) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => toggleEquipment(key)}
+                >
+                  {icon}
+                  <span>{label}</span>
+                </button>
+              ))}
+            </div>
+            <p>Vehicle type</p>
+            <div>
+              {Object.entries(VEHICLE_TYPES).map(([key, { icon, label }]) => (
+                <button
+                  type="button"
+                  key={key}
+                  onClick={() => toggleVehicleType(key)}
+                >
+                  {icon}
+                  <span>{label}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <button type="submit">Search</button>
