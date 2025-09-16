@@ -1,0 +1,119 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.locationWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.location {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6c717b;
+}
+
+.locationInput {
+  padding: 16px 20px;
+  border-radius: 12px;
+  background-color: #f7f7f7;
+  border: none;
+}
+
+.locationInput::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6c717b;
+}
+
+.filters {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #475467;
+  margin-bottom: 32px;
+}
+
+.typesNames {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #101828;
+  margin-bottom: 48px;
+}
+
+.equipmentsWrap {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.equipments,
+.vehicles {
+  border: 1px solid #dadde1;
+  border-radius: 12px;
+  width: 112px;
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.equipments svg,
+.vehicles svg {
+  width: 32px;
+  height: 32px;
+}
+
+.equipments span,
+.vehicles span {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #101828;
+}
+
+.vehiclesWrap {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.equipments:hover,
+.vehicles:hover {
+  border-color: #e44848;
+}
+
+.selected {
+  border-color: red; /* червона рамка для вибраних опцій */
+}
+
+.btnSearch {
+  padding: 16px 56px;
+  border-radius: 200px;
+  border: none;
+  background-color: #e44848;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: #fff;
+  transition: all 0.3s ease;
+  margin-bottom: 40px;
+}
+
+.btnSearch:hover {
+  background-color: var(--button-hover);
+}

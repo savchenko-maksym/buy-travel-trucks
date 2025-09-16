@@ -7,11 +7,14 @@ import SearchMenu from "../SearchMenu/SearchMenu.jsx";
 
 const Catalog = () => {
   const [tracks, setTracks] = useState([]);
+  const [filteredTracks, setFilteredTracks] = useState([]);
+
   useEffect(() => {
     const getData = async () => {
       try {
-        const tracks = await fetchTracks();
-        setTracks(tracks);
+        const data = await fetchTracks();
+        setTracks(data);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -19,15 +22,29 @@ const Catalog = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    setFilteredTracks(tracks);
+  }, [tracks]);
+
+  const handleSearch = async ({ location, form, equipment }) => {
+    try {
+      const filtered = await fetchTracks({ location, form, equipment });
+      setFilteredTracks(filtered);
+      console.log(filtered);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Container>
         <div className={s.mainWrap}>
           <div className={s.menuWrap}>
-            <SearchMenu />
+            <SearchMenu onSearch={handleSearch} />
           </div>
           <div className={s.trackList}>
-            <TrackList tracks={tracks} />
+            <TrackList tracks={filteredTracks} />
           </div>
         </div>
       </Container>

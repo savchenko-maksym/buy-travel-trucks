@@ -11,8 +11,10 @@ import WaterIcon from "../../assets/images/icons/water.svg?react";
 import Van from "../../assets/images/icons/Van.svg?react";
 import FullInt from "../../assets/images/icons/FullInt.svg?react";
 import Alcove from "../../assets/images/icons/Alcove.svg?react";
-import Loation from "../../assets/images/icons/Location.svg?react";
+// import Location from "../../assets/images/icons/Location.svg?react";
 import { useState } from "react";
+import s from "./SearchMenu.module.css";
+import clsx from "clsx";
 
 const EQUIPMENT_MAP = {
   AC: { icon: <AcIcon />, label: "AC" },
@@ -34,7 +36,7 @@ const VEHICLE_TYPES = {
 
 const SearchMenu = ({ onSearch }) => {
   const [selectedEquipment, setSelectedEquipment] = useState([]);
-  const [selectedVehicleTypes, setSelectedVehicleTypes] = useState([]);
+  const [selectedVehicleType, setSelectedVehicleType] = useState(null);
 
   const toggleEquipment = (equip) => {
     setSelectedEquipment((prev) =>
@@ -43,61 +45,66 @@ const SearchMenu = ({ onSearch }) => {
     console.log(selectedEquipment);
   };
 
-  const toggleVehicleType = (type) => {
-    setSelectedVehicleTypes((prev) =>
-      prev.includes(type) ? prev.filter((e) => e !== type) : [...prev, type]
-    );
-  };
-
-  const resetFilters = (resetForm) => {
-    resetForm(),
-      setSelectedEquipment([]),
-      setSelectedVehicleTypes([]),
-      onSearch({ location: "", equipment: [], vehicleTypes: [] });
+  const selectVehicleType = (type) => {
+    setSelectedVehicleType((prev) => (prev === type ? null : type));
+    console.log(selectedVehicleType);
   };
 
   const initialValues = {
     location: "",
   };
 
-  const handleSubmit = (values, { resetForm }) => {
-    onSearch({
-      ...values,
+  const handleSubmit = (values) => {
+    const searchPayload = {
+      location: values.location,
       equipment: selectedEquipment,
-      vehicleTypes: selectedVehicleTypes,
-    });
-    resetForm();
+      form: selectedVehicleType,
+    };
+    console.log(searchPayload);
+
+    onSearch(searchPayload);
   };
 
   return (
     <div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
-          <div>
-            <label>Location</label>
-            <Field name="location" placeholder="City" />
+          <div className={s.locationWrap}>
+            <label className={s.location}>Location</label>
+            <Field
+              name="location"
+              placeholder="City"
+              className={s.locationInput}
+            />
           </div>
-          <div>
-            <p>Vehicle equipment</p>
-            <div>
+          <p className={s.filters}>Filters</p>
+          <div className={s.form}>
+            <p className={s.typesNames}>Vehicle equipment</p>
+            <div className={s.equipmentsWrap}>
               {Object.entries(EQUIPMENT_MAP).map(([key, { icon, label }]) => (
                 <button
                   key={key}
                   type="button"
                   onClick={() => toggleEquipment(key)}
+                  className={clsx(s.equipments, {
+                    [s.selected]: selectedEquipment.includes(key),
+                  })}
                 >
                   {icon}
                   <span>{label}</span>
                 </button>
               ))}
             </div>
-            <p>Vehicle type</p>
-            <div>
+            <p className={s.typesNames}>Vehicle type</p>
+            <div className={s.vehiclesWrap}>
               {Object.entries(VEHICLE_TYPES).map(([key, { icon, label }]) => (
                 <button
                   type="button"
                   key={key}
-                  onClick={() => toggleVehicleType(key)}
+                  onClick={() => selectVehicleType(key)}
+                  className={clsx(s.vehicles, {
+                    [s.selected]: selectedVehicleType === key,
+                  })}
                 >
                   {icon}
                   <span>{label}</span>
@@ -106,7 +113,9 @@ const SearchMenu = ({ onSearch }) => {
             </div>
           </div>
 
-          <button type="submit">Search</button>
+          <button type="submit" className={s.btnSearch}>
+            Search
+          </button>
         </Form>
       </Formik>
     </div>
