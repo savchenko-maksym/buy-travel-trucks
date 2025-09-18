@@ -7,33 +7,34 @@ import SearchMenu from "../SearchMenu/SearchMenu.jsx";
 
 const Catalog = () => {
   const [tracks, setTracks] = useState([]);
-  const [filteredTracks, setFilteredTracks] = useState([]);
+  const [visibleTracks, setVisibleTracks] = useState([]);
+  const [filters, setFilters] = useState({});
+  const [itemsToShow, setItemsToShow] = useState(5);
+
+  const increment = 5;
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await fetchTracks();
+        const data = await fetchTracks(filters);
         setTracks(data);
-        console.log(data);
+        setVisibleTracks(data.slice(0, itemsToShow));
       } catch (error) {
         console.log(error);
       }
     };
     getData();
-  }, []);
+  }, [filters, itemsToShow]);
 
-  useEffect(() => {
-    setFilteredTracks(tracks);
-  }, [tracks]);
+  const handleSearch = (newFilters) => {
+    setFilters(newFilters);
+    setItemsToShow(increment);
+  };
 
-  const handleSearch = async ({ location, form, equipment }) => {
-    try {
-      const filtered = await fetchTracks({ location, form, equipment });
-      setFilteredTracks(filtered);
-      console.log(filtered);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleLoadMore = () => {
+    const newItemsToShow = itemsToShow + increment;
+    setItemsToShow(newItemsToShow);
+    setVisibleTracks(tracks.slice(0, newItemsToShow));
   };
 
   return (
@@ -44,7 +45,14 @@ const Catalog = () => {
             <SearchMenu onSearch={handleSearch} />
           </div>
           <div className={s.trackList}>
-            <TrackList tracks={filteredTracks} />
+            <TrackList tracks={visibleTracks} />
+            {visibleTracks.length < tracks.length && (
+              <div className={s.loadMoreWrap}>
+                <button className={s.loadMore} onClick={handleLoadMore}>
+                  Load More
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </Container>
