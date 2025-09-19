@@ -7,6 +7,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Header from "./Header/Header.jsx";
 import Features from "./Features/Features.jsx";
 import Reviews from "./Reviews/Reviews.jsx";
+import FavoritesPage from "../pages/FavoritesPage/FavoritesPage.jsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="features" element={<Features />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
+        <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

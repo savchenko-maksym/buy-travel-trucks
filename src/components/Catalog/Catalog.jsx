@@ -34,7 +34,6 @@ const Catalog = () => {
   const handleLoadMore = () => {
     const newItemsToShow = itemsToShow + increment;
     setItemsToShow(newItemsToShow);
-    setVisibleTracks(tracks.slice(0, newItemsToShow));
   };
 
   return (

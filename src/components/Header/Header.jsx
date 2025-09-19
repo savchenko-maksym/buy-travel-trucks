@@ -19,6 +19,9 @@ const Header = () => {
         <NavLink className={setActiveClass} to="/catalog">
           Catalog
         </NavLink>
+        <NavLink className={setActiveClass} to="/favorites">
+          Favorites
+        </NavLink>
       </nav>
     </header>
   );
