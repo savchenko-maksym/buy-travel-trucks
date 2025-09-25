@@ -11,12 +11,18 @@ import MicrowaveIcon from "../../assets/images/icons/microwave.svg?react";
 import GasIcon from "../../assets/images/icons/gas.svg?react";
 import WaterIcon from "../../assets/images/icons/water.svg?react";
 import StarIcon from "../../assets/images/icons/star.svg?react";
+import BlackHeart from "../../assets/images/icons/BlackHeart.svg?react";
+import RedHeart from "../../assets/images/icons/RedHeart.svg?react";
 import LocationIcon from "../../assets/images/icons/location.svg?react";
 import { Link } from "react-router-dom";
+import { useFavorites } from "../FavoritesContext/FavoritesContext.jsx";
 
 const TrackItem = ({ data }) => {
   const { name, price, rating, location, description, gallery, reviews, id } =
     data;
+
+  const { favorites, toggleFavorite } = useFavorites();
+  const isFavorite = favorites.some((item) => item.id === id);
 
   const FEATURES_MAP = {
     transmission: { icon: <TransmissionIcon />, label: (val) => val },
@@ -43,7 +49,12 @@ const TrackItem = ({ data }) => {
           <div className={s.header}>
             <div className={s.nameAndPrice}>
               <h2 className={s.titleName}>{name}</h2>
-              <span className={s.price}>€{price}.00</span>
+              <span className={s.price}>
+                €{price}.00{" "}
+                <button onClick={() => toggleFavorite(data)}>
+                  {isFavorite ? <RedHeart /> : <BlackHeart />}
+                </button>
+              </span>
             </div>
 
             <div className={s.ratingAndLocation}>
