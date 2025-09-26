@@ -24,10 +24,6 @@ function App() {
             <Route path="reviews" element={<Reviews />} />
           </Route>
           <Route path="/favorites" element={<FavoritesPage />} />
-          {/* <Route
-            path="/favorites/:id"
-            element={<Navigate to="/catalog/:id" />}
-          /> */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
