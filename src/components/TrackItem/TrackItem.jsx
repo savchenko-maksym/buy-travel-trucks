@@ -51,7 +51,7 @@ const TrackItem = ({ data }) => {
               <h2 className={s.titleName}>{name}</h2>
               <span className={s.price}>
                 €{price}.00{" "}
-                <button onClick={() => toggleFavorite(data)}>
+                <button className={s.hart} onClick={() => toggleFavorite(data)}>
                   {isFavorite ? <RedHeart /> : <BlackHeart />}
                 </button>
               </span>
@@ -97,7 +97,7 @@ const TrackItem = ({ data }) => {
               );
             })}
           </div>
-          <Link to={id.toString()} className={s.button}>
+          <Link to={`/catalog/${id.toString()}`} className={s.button}>
             Show more
           </Link>
         </div>

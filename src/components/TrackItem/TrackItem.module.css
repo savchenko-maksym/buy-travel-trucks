@@ -28,9 +28,13 @@
   margin-bottom: 8px;
 }
 
-button svg {
-  display: inline-block;
-  width: 24px;
+.hart {
+  background: none;
+  padding: 0;
+}
+
+.hart svg {
+  width: 26px;
   height: 24px;
 }
 
@@ -42,6 +46,10 @@ button svg {
 }
 
 .price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   font-weight: 600;
   font-size: 24px;
   line-height: 1.33333;

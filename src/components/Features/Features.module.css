@@ -7,11 +7,11 @@
 }
 
 .wrapDetails {
-  /* flex: 1 1 0; */
+  flex: 1 1 0;
   border-radius: 10px;
   padding: 44px 52px;
-  width: 631px;
-  /* min-width: 0; */
+  max-width: 631px;
+  min-width: 0;
   background-color: var(--inputs);
   flex-shrink: 0;
 }
