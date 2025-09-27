@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchTrackById } from "../../redux/trucks/operations.js";
 import s from "./OptionsOneTrack.module.css";
-import TransmissionIcon from "../../assets/images/icons/automatic.svg?react";
-import EngineIcon from "../../assets/images/icons/petrol.svg?react";
-import AcIcon from "../../assets/images/icons/ac.svg?react";
-import BathroomIcon from "../../assets/images/icons/bathroom.svg?react";
-import KitchenIcon from "../../assets/images/icons/kitchen.svg?react";
-import TvIcon from "../../assets/images/icons/tv.svg?react";
-import RadioIcon from "../../assets/images/icons/radio.svg?react";
-import RefrigeratorIcon from "../../assets/images/icons/refrigeration.svg?react";
-import MicrowaveIcon from "../../assets/images/icons/microwave.svg?react";
-import GasIcon from "../../assets/images/icons/gas.svg?react";
-import WaterIcon from "../../assets/images/icons/water.svg?react";
+import { ReactComponent as TransmissionIcon } from "../../assets/images/icons/automatic.svg";
+import { ReactComponent as EngineIcon } from "../../assets/images/icons/petrol.svg";
+import { ReactComponent as AcIcon } from "../../assets/images/icons/ac.svg";
+import { ReactComponent as BathroomIcon } from "../../assets/images/icons/bathroom.svg";
+import { ReactComponent as KitchenIcon } from "../../assets/images/icons/kitchen.svg";
+import { ReactComponent as TvIcon } from "../../assets/images/icons/tv.svg";
+import { ReactComponent as RadioIcon } from "../../assets/images/icons/radio.svg";
+import { ReactComponent as RefrigeratorIcon } from "../../assets/images/icons/refrigeration.svg";
+import { ReactComponent as MicrowaveIcon } from "../../assets/images/icons/microwave.svg";
+import { ReactComponent as GasIcon } from "../../assets/images/icons/gas.svg";
+import { ReactComponent as WaterIcon } from "../../assets/images/icons/water.svg";
 
 const OptionsOneTrack = () => {
   const { id } = useParams();

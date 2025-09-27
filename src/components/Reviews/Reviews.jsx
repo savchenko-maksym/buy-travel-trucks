@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import Forms from "../Forms/Forms.jsx";
 import s from "./Reviews.module.css";
-import StarIcon from "../../assets/images/icons/star.svg?react";
+import { ReactComponent as StarIcon } from "../../assets/images/icons/star.svg";
 
 const Reviews = () => {
   const { track } = useOutletContext();
