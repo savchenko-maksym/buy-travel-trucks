@@ -8,9 +8,9 @@ import RefrigeratorIcon from "../../assets/images/icons/refrigeration.svg?react"
 import MicrowaveIcon from "../../assets/images/icons/microwave.svg?react";
 import GasIcon from "../../assets/images/icons/gas.svg?react";
 import WaterIcon from "../../assets/images/icons/water.svg?react";
-import Van from "../../assets/images/icons/van.tmp?react";
-import FullInt from "../../assets/images/icons/fullInt.tmp?react";
-import Alcove from "../../assets/images/icons/alcove.tmp?react";
+import Van from "../../assets/images/icons/van.svg?react";
+import FullInt from "../../assets/images/icons/fullInt.svg?react";
+import Alcove from "../../assets/images/icons/alcove.svg?react";
 import { useState } from "react";
 import s from "./SearchMenu.module.css";
 import clsx from "clsx";
