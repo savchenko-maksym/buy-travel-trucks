@@ -31,6 +31,32 @@
   color: #6c717b;
 }
 
+.selectedLocation {
+  margin-left: 16px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0f0f0;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 14px;
+}
+
+.removeBtn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  line-height: 1;
+  color: #666;
+}
+
+.removeBtn:hover {
+  color: #000;
+}
+
 .filters {
   font-weight: 500;
   font-size: 16px;

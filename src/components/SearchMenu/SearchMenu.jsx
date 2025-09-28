@@ -36,31 +36,47 @@ const VEHICLE_TYPES = {
 const SearchMenu = ({ onSearch }) => {
   const [selectedEquipment, setSelectedEquipment] = useState([]);
   const [selectedVehicleType, setSelectedVehicleType] = useState(null);
+  const [savedLocation, setSavedLocation] = useState(null);
 
   const toggleEquipment = (equip) => {
     setSelectedEquipment((prev) =>
       prev.includes(equip) ? prev.filter((e) => e !== equip) : [...prev, equip]
     );
-    console.log(selectedEquipment);
   };
 
   const selectVehicleType = (type) => {
     setSelectedVehicleType((prev) => (prev === type ? null : type));
-    console.log(selectedVehicleType);
   };
 
   const initialValues = {
     location: "",
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, options) => {
     const searchPayload = {
       location: values.location,
       equipment: selectedEquipment,
       form: selectedVehicleType,
     };
-    console.log(searchPayload);
 
+    onSearch(searchPayload);
+
+    if (values.location.trim()) {
+      setSavedLocation(values.location.trim());
+    } else {
+      setSavedLocation(null);
+    }
+
+    options.resetForm();
+  };
+
+  const handleRemoveLocation = () => {
+    setSavedLocation(null);
+    const searchPayload = {
+      location: "",
+      equipment: selectedEquipment,
+      form: selectedVehicleType,
+    };
     onSearch(searchPayload);
   };
 
@@ -75,6 +91,21 @@ const SearchMenu = ({ onSearch }) => {
               placeholder="City"
               className={s.locationInput}
             />
+            {savedLocation && (
+              <div className={s.selectedLocation}>
+                <span className={s.badge}>
+                  {savedLocation.charAt(0).toUpperCase() +
+                    savedLocation.slice(1)}
+                </span>
+                <button
+                  className={s.removeBtn}
+                  type="button"
+                  onClick={handleRemoveLocation}
+                >
+                  x
+                </button>
+              </div>
+            )}
           </div>
           <p className={s.filters}>Filters</p>
           <div className={s.form}>
