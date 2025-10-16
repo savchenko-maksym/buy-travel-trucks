@@ -14,6 +14,7 @@ import Alcove from "../../assets/images/icons/alcove.svg?react";
 import { useState } from "react";
 import s from "./SearchMenu.module.css";
 import clsx from "clsx";
+import { fetchAllLocations } from "../../redux/trucks/operations.js";
 
 const EQUIPMENT_MAP = {
   AC: { icon: <AcIcon />, label: "AC" },
@@ -37,6 +38,45 @@ const SearchMenu = ({ onSearch }) => {
   const [selectedEquipment, setSelectedEquipment] = useState([]);
   const [selectedVehicleType, setSelectedVehicleType] = useState(null);
   const [savedLocation, setSavedLocation] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
+  const [allLocations, setAllLocations] = useState([]);
+  const [loadingLocations, setloadingLocations] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const handleLocationChange = async (e, setFieldValue) => {
+    const value = e.target.value;
+    setQuery(value);
+    setFieldValue("location", value);
+
+    if (value.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    if (allLocations.length === 0) {
+      try {
+        setloadingLocations(true);
+        const locations = await fetchAllLocations();
+        setAllLocations(locations);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setloadingLocations(false);
+      }
+    }
+
+    const filtered = allLocations.filter((loc) =>
+      loc.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setSuggestions(filtered);
+  };
+
+  const handleSuggestionClick = (loc, setFieldValue) => {
+    setFieldValue("location", loc);
+    setSavedLocation(loc);
+    setSuggestions([]);
+  };
 
   const toggleEquipment = (equip) => {
     setSelectedEquipment((prev) =>
@@ -83,70 +123,113 @@ const SearchMenu = ({ onSearch }) => {
   return (
     <div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
-          <div className={s.locationWrap}>
-            <label className={s.location}>Location</label>
-            <Field
-              name="location"
-              placeholder="City"
-              className={s.locationInput}
-            />
-            {savedLocation && (
-              <div className={s.selectedLocation}>
-                <span className={s.badge}>
-                  {savedLocation.charAt(0).toUpperCase() +
-                    savedLocation.slice(1)}
-                </span>
-                <button
-                  className={s.removeBtn}
-                  type="button"
-                  onClick={handleRemoveLocation}
-                >
-                  x
-                </button>
-              </div>
-            )}
-          </div>
-          <p className={s.filters}>Filters</p>
-          <div className={s.form}>
-            <p className={s.typesNames}>Vehicle equipment</p>
-            <div className={s.equipmentsWrap}>
-              {Object.entries(EQUIPMENT_MAP).map(([key, { icon, label }]) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => toggleEquipment(key)}
-                  className={clsx(s.equipments, {
-                    [s.selected]: selectedEquipment.includes(key),
-                  })}
-                >
-                  {icon}
-                  <span>{label}</span>
-                </button>
-              ))}
-            </div>
-            <p className={s.typesNames}>Vehicle type</p>
-            <div className={s.vehiclesWrap}>
-              {Object.entries(VEHICLE_TYPES).map(([key, { icon, label }]) => (
-                <button
-                  type="button"
-                  key={key}
-                  onClick={() => selectVehicleType(key)}
-                  className={clsx(s.vehicles, {
-                    [s.selected]: selectedVehicleType === key,
-                  })}
-                >
-                  {icon}
-                  <span>{label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+        {({ setFieldValue }) => (
+          <Form>
+            <div className={s.locationWrap}>
+              <label htmlFor="location" className={s.location}>
+                Location
+              </label>
+              <div className={s.autocompleteWrap}>
+                <Field name="location">
+                  {({ field, form }) => (
+                    <div className={s.inputWtapper}>
+                      <input
+                        id="location"
+                        {...field}
+                        placeholder="City"
+                        className={s.locationInput}
+                        autoComplete="off"
+                        onChange={(e) =>
+                          handleLocationChange(e, form.setFieldValue)
+                        }
+                      />
+                      {loadingLocations && (
+                        <span className={s.loader}>Loading...</span>
+                      )}
+                    </div>
+                  )}
+                </Field>
 
-          <button type="submit" className={s.btnSearch}>
-            Search
-          </button>
-        </Form>
+                {suggestions.length > 0 && (
+                  <ul className={s.suggestionsList}>
+                    {suggestions.map((loc) => (
+                      <li
+                        key={loc}
+                        onClick={() =>
+                          handleSuggestionClick(loc, setFieldValue)
+                        }
+                      >
+                        {loc}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {!loadingLocations &&
+                  query.length >= 2 &&
+                  suggestions.length === 0 &&
+                  !savedLocation && (
+                    <p className={s.noResults}>No cities found</p>
+                  )}
+              </div>
+
+              {savedLocation && (
+                <div className={s.selectedLocation}>
+                  <span className={s.badge}>
+                    {savedLocation.charAt(0).toUpperCase() +
+                      savedLocation.slice(1)}
+                  </span>
+                  <button
+                    className={s.removeBtn}
+                    type="button"
+                    onClick={handleRemoveLocation}
+                  >
+                    x
+                  </button>
+                </div>
+              )}
+            </div>
+            <p className={s.filters}>Filters</p>
+            <div className={s.form}>
+              <p className={s.typesNames}>Vehicle equipment</p>
+              <div className={s.equipmentsWrap}>
+                {Object.entries(EQUIPMENT_MAP).map(([key, { icon, label }]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => toggleEquipment(key)}
+                    className={clsx(s.equipments, {
+                      [s.selected]: selectedEquipment.includes(key),
+                    })}
+                  >
+                    {icon}
+                    <span>{label}</span>
+                  </button>
+                ))}
+              </div>
+              <p className={s.typesNames}>Vehicle type</p>
+              <div className={s.vehiclesWrap}>
+                {Object.entries(VEHICLE_TYPES).map(([key, { icon, label }]) => (
+                  <button
+                    type="button"
+                    key={key}
+                    onClick={() => selectVehicleType(key)}
+                    className={clsx(s.vehicles, {
+                      [s.selected]: selectedVehicleType === key,
+                    })}
+                  >
+                    {icon}
+                    <span>{label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <button type="submit" className={s.btnSearch}>
+              Search
+            </button>
+          </Form>
+        )}
       </Formik>
     </div>
   );

@@ -26,3 +26,10 @@ export const fetchTrackById = async (id) => {
   const response = await axiosAPI.get(`/campers/${id}`);
   return response.data;
 };
+
+export const fetchAllLocations = async () => {
+  const response = await axiosAPI.get("/campers");
+  const items = response.data.items || [];
+  const uniqeLocations = [...new Set(items.map((item) => item.location))];
+  return uniqeLocations;
+};
